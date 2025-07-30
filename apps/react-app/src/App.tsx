@@ -3,9 +3,11 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { capitalize } from "@repo/utils";
+import { useTranslation } from "react-i18next";
 
 function App() {
   const [count, setCount] = useState(0);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -18,6 +20,7 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <p>{t("welcome")}</p>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           {capitalize("this is a new one")} count is {count}
