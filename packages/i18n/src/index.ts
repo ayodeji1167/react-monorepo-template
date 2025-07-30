@@ -1,5 +1,5 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18next from "i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 // Import translations
@@ -8,7 +8,7 @@ import frTranslations from "./locales/fr/translation.json";
 
 export const defaultNamespace = "common";
 export const defaultLanguage = "en";
-export const supportedLanguages = ["en", "fr"] as any;
+export const supportedLanguages = ["en", "fr"] as const;
 
 export type SupportedLanguage = (typeof supportedLanguages)[number];
 
@@ -36,34 +36,30 @@ export const i18nConfig = {
   },
 };
 
-// React/Vite specific configuration
-export const initReactI18n = () => {
-  i18n
-    .use(LanguageDetector)
-    .use(initReactI18next)
-    .init({
-      ...i18nConfig,
+// Function to create an i18n instance for a React app
+export const createI18nInstance = (
+  options: { useLanguageDetector?: boolean; appName?: string } = {},
+) => {
+  const { useLanguageDetector = true, appName = "app" } = options;
+  const instance = i18next.createInstance();
+
+  const initChain = instance.use(initReactI18next);
+  if (useLanguageDetector) {
+    initChain.use(LanguageDetector);
+  }
+
+  initChain.init({
+    ...i18nConfig,
+    ...(useLanguageDetector && {
       detection: {
         order: ["localStorage", "navigator", "htmlTag"],
         caches: ["localStorage"],
-        lookupLocalStorage: "i18nextLng",
+        lookupLocalStorage: `${appName}_i18nextLng`, // Unique key per app to avoid conflicts
       },
-      debug: process.env.NODE_ENV === "development",
-    });
+    }),
+    debug: process.env.NODE_ENV === "development",
+  });
 
-  return i18n;
-};
-
-// Initialize GENERAL i18next instance
-export const createI18nInstance = () => {
-  const instance = i18n.createInstance();
-  instance.use(initReactI18next).init(i18nConfig);
-  return instance;
-};
-// Initialize i18next instance
-export const createI18nInstanceForReact = () => {
-  const instance = initReactI18n().createInstance();
-  instance.use(initReactI18next).init(i18nConfig);
   return instance;
 };
 
@@ -71,28 +67,28 @@ export const createI18nInstanceForReact = () => {
 export type TranslationKeys = keyof typeof enTranslations;
 
 // Utility functions
-export const isValidLanguage = (lang: string): lang is SupportedLanguage => {
-  return supportedLanguages.includes(lang as SupportedLanguage);
-};
+export const isValidLanguage = (lang: string): lang is SupportedLanguage =>
+  supportedLanguages.includes(lang as SupportedLanguage);
 
 export const getDefaultLanguage = (): SupportedLanguage => defaultLanguage;
 export const getSupportedLanguages = (): readonly SupportedLanguage[] =>
   supportedLanguages;
 
-//Hooks
-// React Hook for language switching
+// React Hook for language switching using context instance
 export const useLanguageSwitch = () => {
-  const { i18n } = require("react-i18next");
-
+  const { i18n } = useTranslation();
   const changeLanguage = (language: string) => {
-    i18n.changeLanguage(language);
+    if (isValidLanguage(language)) {
+      i18n.changeLanguage(language);
+    }
   };
 
   return {
     currentLanguage: i18n.language,
     changeLanguage,
-    supportedLanguages: Object.keys(resources),
+    supportedLanguages: Object.keys(resources) as SupportedLanguage[],
   };
 };
-// Export everything from react-i18next for convenience
+
+// Re-export react-i18next utilities
 export * from "react-i18next";

@@ -3,11 +3,12 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { capitalize } from "@repo/utils";
-import { useTranslation } from "react-i18next";
-
+import { useLanguageSwitch, useTranslation } from "@repo/i18n";
 function App() {
   const [count, setCount] = useState(0);
   const { t } = useTranslation();
+  const { changeLanguage, currentLanguage } = useLanguageSwitch();
+  console.log("currentLanguage from app is ", currentLanguage);
 
   return (
     <>
@@ -25,6 +26,17 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           {capitalize("this is a new one")} count is {count}
         </button>
+        <div>
+          <button
+            onClick={() => {
+              console.log(currentLanguage);
+
+              changeLanguage(currentLanguage === "en" ? "fr" : "en");
+            }}
+          >
+            Current language is {currentLanguage}
+          </button>
+        </div>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
