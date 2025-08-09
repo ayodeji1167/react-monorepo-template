@@ -1,0 +1,42 @@
+{
+  "name": "@repo/theme",
+  "version": "1.0.0",
+  "description": "Theme Configuration For Frontend Applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./chakra-ui": {
+      "import": "./dist/chakra-ui/index.js",
+      "require": "./dist/chakra-ui/index.js",
+      "types": "./dist/chakra-ui/index.d.ts"
+    },
+    "./tailwind": {
+      "import": "./dist/tailwind/index.js",
+      "require": "./dist/tailwind/index.js",
+      "types": "./dist/tailwind/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^3.24.2",
+    "@emotion/react": "^11.14.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "tsc-alias": "^1.8.16",
+    "typescript": "^5.8.2"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "extends": "@repo/typescript-config/react-library.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "paths": {
+      // "@/*": ["./src/*"],
+      "@repo/theme": ["./src/index.ts"],
+      "@repo/theme/chakra-ui": ["./src/chakra-ui/index.ts"],
+      "@repo/theme/tailwind": ["./src/tailwind/index.ts"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
