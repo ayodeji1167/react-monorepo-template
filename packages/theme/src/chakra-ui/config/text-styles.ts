@@ -1,4 +1,4 @@
-import { TextProps, Token } from "@chakra-ui/react";
+import { TextProps } from "@chakra-ui/react";
 
 export const h1BaseStyle: TextProps = {
   fontFamily: "body",

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChakraProvider } from "@chakra-ui/react";
 import { createI18nInstance, I18nextProvider } from "@repo/i18n";
 import { system } from "@repo/theme/chakra-ui";

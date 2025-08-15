@@ -2,17 +2,35 @@
   "name": "@repo/ui",
   "version": "0.0.0",
   "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
-    "./*": "./src/*.tsx"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./chakra-ui": {
+      "import": "./dist/chakra-ui/index.js",
+      "require": "./dist/chakra-ui/index.js",
+      "types": "./dist/chakra-ui/index.d.ts"
+    },
+    "./tailwind": {
+      "import": "./dist/tailwind/index.js",
+      "require": "./dist/tailwind/index.js",
+      "types": "./dist/tailwind/index.d.ts"
+    }
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "build": "tsc"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@repo/theme": "workspace:*",
     "@types/node": "^22.15.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
@@ -21,6 +39,8 @@
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "@chakra-ui/react": "^3.24.2",
+    "@emotion/react": "^11.14.0"
   }
 }

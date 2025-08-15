@@ -1,5 +1,5 @@
 {
-  "name": "@repo/utils",
+  "name": "@repo/types",
   "license": "MIT",
   "version": "1.0.0",
   "main": "dist/index.js",
@@ -10,11 +10,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json"
   },
-  "dependencies": {
-    "date-fns": "^2.29.3",
-    "moment": "^2.30.1",
-    "@repo/types": "workspace:*"
-  },
+ 
   "devDependencies": {
     "typescript": "5.8.2"
   }
