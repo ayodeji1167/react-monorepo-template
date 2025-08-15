@@ -1,14 +1,13 @@
-import "./App.css";
 import { useLanguageSwitch } from "@repo/i18n";
 import AppProvider from "./provider/AppProvider";
-import { Box } from "@chakra-ui/react";
+import AppRouter from "./routes";
 function App() {
   const { currentLanguage } = useLanguageSwitch();
   console.log("currentLanguage from app is ", currentLanguage);
 
   return (
     <AppProvider>
-      <Box bg={"black"}></Box>
+      <AppRouter />
     </AppProvider>
   );
 }

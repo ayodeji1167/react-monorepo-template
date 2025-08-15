@@ -4,3 +4,4 @@ export * from "./number";
 export * from "./amount";
 export * from "./storage";
 export * from "./persist-token";
+export * from "./route";
